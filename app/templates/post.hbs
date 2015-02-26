@@ -32,8 +32,16 @@
       </div>
 
       <ul class="pager">
-        <li class="previous disabled"><a href="#">← Older</a></li>
-        <li class="next"><a href="#">Newer →</a></li>
+        {{#if previousPost}}
+          <li class="previous">{{#link-to "post" previousPost}}← Older{{/link-to}}</li>
+        {{else}}
+          <li class="previous disabled"><a>← Older</a></li>
+        {{/if}}
+        {{#if nextPost}}
+          <li class="next">{{#link-to "post" nextPost}}Newer →{{/link-to}}</li>
+        {{else}}
+          <li class="next disabled"><a>Newer →</a></li>
+        {{/if}}
       </ul>
 
     </div>
@@ -92,46 +100,18 @@
 
         <div class="recent-posts-cont">
           <ul class="image-list">
-            <li class="table">
-              <a href="#" class="table-row">
-                <div class="vertical-center">
-                  <img src="http://s3.amazonaws.com/uifaces/faces/twitter/cacique/73.jpg" class="author-image">
-                </div>
-                <div class="vertical-center article-title">
-                  Snapper Rocks Surfing
-                </div>
-              </a>
-            </li>
-            <li class="table">
-              <a href="#" class="table-row">
-                <div class="vertical-center">
-                  <img src="http://s3.amazonaws.com/uifaces/faces/twitter/visionarty/73.jpg" class="author-image">
-                </div>
-                <div class="vertical-center article-title">
-                  The Best Sushi in St. Louis
-                </div>
-              </a>
-            </li>
-            <li class="table">
-              <a href="#" class="table-row">
-                <div class="vertical-center">
-                  <img src="http://s3.amazonaws.com/uifaces/faces/twitter/thisisvandie/73.jpg" class="author-image">
-                </div>
-                <div class="vertical-center article-title">
-                  Seven Sweet Skyline Stays
-                </div>
-              </a>
-            </li>
-            <li class="table">
-              <a href="#" class="table-row">
-                <div class="vertical-center">
-                  <img src="http://s3.amazonaws.com/uifaces/faces/twitter/lukekndy/73.jpg" class="author-image">
-                </div>
-                <div class="vertical-center article-title">
-                  The Best Small Towns
-                </div>
-              </a>
-            </li>
+            {{#each post in recentPosts}}
+              <li class="table">
+                {{#link-to "post" post classNames="table-row"}}
+                  <div class="vertical-center">
+                    <img {{bind-attr src="post.author.profileImageUrl"}} class="author-image">
+                  </div>
+                  <div class="vertical-center article-title">
+                    {{post.title}}
+                  </div>
+                {{/link-to}}
+              </li>
+            {{/each}}
           </ul>
         </div>
 
