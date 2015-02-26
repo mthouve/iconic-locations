@@ -19,12 +19,23 @@ module.exports = function(environment) {
     }
   };
 
+  ENV.contentSecurityPolicy = {
+    'default-src': "'none'",
+    'script-src': "'self' https://code.jquery.com https://maxcdn.bootstrapcdn.com https://cdnjs.cloudflare.com", // Allow scripts from https://code.jquery.com, https://maxcdn.bootstrapcdn.com, and https://cdnjs.cloudflare.com
+    'font-src': "'self' https://maxcdn.bootstrapcdn.com https://cdnjs.cloudflare.com https://fonts.gstatic.com", // Allow fonts from https://maxcdn.bootstrapcdn.com, https://cdnjs.cloudflare.com and https://fonts.gstatic.com
+    'connect-src': "'self'",
+    'img-src': "'self'",
+    'style-src': "'self' 'unsafe-inline' https://maxcdn.bootstrapcdn.com https://cdnjs.cloudflare.com https://fonts.gstatic.com https://fonts.googleapis.com", // Allow styles from https://maxcdn.bootstrapcdn.com, https://cdnjs.cloudflare.com and https://fonts.googleapis.com
+    'media-src': "'self'"
+  }
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.contentSecurityPolicy['img-src'] += " http://lorempixel.com http://s3.amazonaws.com"; // Allow images from http://lorempixel.com and https://s3.amazonaws.com (Used for UIFaces)
   }
 
   if (environment === 'test') {
